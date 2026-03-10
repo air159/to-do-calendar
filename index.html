@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentum Calendar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top-bar">
+      <div>
+        <h1>Momentum Calendar</h1>
+        <p>Plan your day, keep recurring routines, and clear your priority list.</p>
+      </div>
+      <div class="month-nav">
+        <button id="prevMonth" aria-label="Previous month">←</button>
+        <h2 id="monthLabel"></h2>
+        <button id="nextMonth" aria-label="Next month">→</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="calendar-panel">
+        <div class="weekday-row" id="weekdayRow"></div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </section>
+
+      <aside class="task-panel">
+        <section class="task-panel-header">
+          <h3 id="selectedDateLabel"></h3>
+          <small>Daily plan (sorted by urgency)</small>
+        </section>
+
+        <div class="task-actions">
+          <button id="quickToday">Jump to Today</button>
+        </div>
+
+        <ul id="dayTaskList" class="task-list"></ul>
+
+        <form id="taskForm" class="task-form">
+          <h4>Add a task</h4>
+          <label>
+            Task name
+            <input id="taskTitle" required placeholder="e.g., Wash hair" />
+          </label>
+
+          <label>
+            Priority
+            <select id="taskPriority">
+              <option value="critical">Critical (non-negotiable)</option>
+              <option value="high">High</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </label>
+
+          <label>
+            Task mode
+            <select id="taskMode">
+              <option value="day" selected>Assign to selected day</option>
+              <option value="backlog">General backlog (no strict date)</option>
+            </select>
+          </label>
+
+          <label>
+            Recurrence (resets only after completion)
+            <select id="taskRecurrence">
+              <option value="none" selected>No recurrence</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="custom">Every N days</option>
+            </select>
+          </label>
+
+          <label id="customDaysWrap" class="hidden">
+            Repeat every N days
+            <input id="taskCustomDays" type="number" min="1" value="7" />
+          </label>
+
+          <button type="submit">Save task</button>
+        </form>
+
+        <section class="backlog-section">
+          <h4>General backlog (move into a day when needed)</h4>
+          <ul id="backlogList" class="task-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <template id="taskItemTemplate">
+      <li class="task-item">
+        <div>
+          <label class="checkbox-label">
+            <input type="checkbox" class="task-checkbox" />
+            <span class="task-title"></span>
+          </label>
+          <div class="task-meta"></div>
+        </div>
+        <div class="task-controls">
+          <button class="move-btn">Move</button>
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn danger">Delete</button>
+        </div>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
